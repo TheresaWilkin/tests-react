@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import chai from 'chai';
@@ -30,20 +31,33 @@ describe('Image component', function() {
 import Gallery from '../js/components/gallery';
 describe('Gallery component', function() {
     it('Renders a gallery of images', function() {
-        const images = [{url:'http://www.example.com/image.png', description:'Example description'}, 
+        const images = [{url:'http://www.example.com/image.png', description:'Example description'},
             {url:'http://www.example.com/image2.png', description:'Example description2'}];
         const renderer = TestUtils.createRenderer();
         renderer.render(<Gallery images={images} />);
         const result = renderer.getRenderOutput();
         result.props.className.should.equal('gallery');
+
+        const imgs = result.props.children;
+        imgs.length.should.equal(2);
+
+        console.log(imgs);
+        const p = result.props.children[0];
+        p.props.url.should.equal(images[0].url);
+        p.props.description.should.equal(images[0].description);
+
+        const two = result.props.children[1];
+        two.props.url.should.equal(images[1].url);
+        two.props.description.should.equal(images[1].description);
     });
 });
-// Try creating a series of tests to make 
-// sure that the Gallery component is working 
-// correctly. You should check that the 
-// container has the correct class name, that 
-// the correct number of Images are rendered, 
+// Try creating a series of tests to make
+// sure that the Gallery component is working
+// correctly.
+// You should check that the
+// container has the correct class name,
+// that the correct number of Images are rendered,
 // and that each Image has the correct props set.
-// 
-// 
-// 
+//
+//
+//
